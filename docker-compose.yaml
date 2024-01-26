@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./app:/app
+    ports:
+      - "7860:7860"
+    command: bash
+    platform: linux/amd64
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
